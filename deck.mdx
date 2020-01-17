@@ -2,143 +2,182 @@ import {
   CodeSurfer,
   CodeSurferColumns,
   Step,
-} from "code-surfer";
-import { github, vsDark } from "@code-surfer/themes";
+} from 'code-surfer';
+import {Head} from 'mdx-deck';
 
-export const theme = vsDark;
+import {AboutMe} from './src/about-me';
+import {AppearList} from './src/appear-list';
+import {Info} from './src/info';
 
-# Hello 👋
+import {duskOwl} from './src/dusk-owl';
+import {nightOwl} from '@code-surfer/themes';
+export const theme = nightOwl;
 
-You are using [MDX Deck](https://github.com/jxnblk/mdx-deck) and [Code Surfer](https://codesurfer.pomb.us)
+<Head>
+  <title>Demystifying Javascript Modules</title>
+</Head>
+
+<div>
+  <h1 style={{textAlign: "center"}}>Demystifying<br/>JavaScript Modules</h1>
+  <p style={{marginTop: "150px", textAlign: "center"}}>http://bit.ly/376tOS0</p>
+</div>
+
+---
+
+<AboutMe />
 
 ---
 
 <CodeSurfer>
 
-```js title="This is a title" subtitle="and this a subtitle"
-function lorem(ipsum, dolor = 1) {
-  const sit = ipsum == null ? 0 : ipsum.sit;
-  dolor = sit - amet(dolor);
-  return sit
-    ? consectetur(ipsum, 0, dolor < 0 ? 0 : dolor)
-    : [];
-}
-
-function incididunt(ipsum, ut = 1) {
-  ut = labore.et(amet(ut), 0);
-  const sit = ipsum == null ? 0 : ipsum.sit;
-
-  if (!sit || ut < 1) {
-    return [];
-  }
-
-  let dolore = 0;
-  let magna = 0;
-  const aliqua = new eiusmod(labore.ut(sit / ut));
-
-  while (dolore < sit) {
-    aliqua[magna++] = consectetur(
-      ipsum,
-      dolore,
-      (dolore += ut)
-    );
-  }
-
-  return aliqua;
-}
-```
-
-```js
-function lorem(ipsum, dolor = 1) {
-  const sit = ipsum == null ? 0 : ipsum.sit;
-  dolor = sit - amet(dolor);
-  return sit
-    ? consectetur(ipsum, 0, dolor < 0 ? 0 : dolor)
-    : [];
-}
-
-function adipiscing(...elit) {
-  if (!elit.sit) {
-    return [];
-  }
-
-  const sed = elit[0];
-  return eiusmod.tempor(sed) ? sed : [sed];
-}
-
-function incididunt(ipsum, ut = 1) {
-  ut = labore.et(amet(ut), 0);
-  const sit = ipsum == null ? 0 : ipsum.sit;
-
-  if (!sit || ut < 1) {
-    return [];
-  }
-
-  let dolore = 0;
-  let magna = 0;
-  const aliqua = new eiusmod(labore.ut(sit / ut));
-
-  while (dolore < sit) {
-    aliqua[magna++] = consectetur(
-      ipsum,
-      dolore,
-      (dolore += ut)
-    );
-  }
-
-  return aliqua;
-}
-```
-
-```diff 1[10:14],2[15:19],3[22:27],10:12
-
+```coffeescript title="CoffeeScript"
+do (x, y) ->
+  [x, y] = [y, x%y] until y is 0
+  x
 ```
 
 </CodeSurfer>
 
 ---
 
-<CodeSurferColumns themes={[vsDark, github]}>
+<CodeSurfer>
+
+```ts title="TypeScript"
+(function(x: number, y: number) {
+  while (y !== 0) {
+    [x, y] = [y, x % y];
+  }
+  return x;
+})(x, y);
+```
+
+</CodeSurfer>
+
+---
+
+##  Bazel Rules
+
+<AppearList>
+<li>ES6 AMD and UMD modules</li>
+<li>ES5 AMD and UMD modules</li>
+<li>CommonJS modules and non-module ES5</li>
+<li>ES5 global scripts</li>
+</AppearList>
+
+---
+
+<CodeSurfer>
+
+```js title="JavaScript"
+(function (global, factory) {
+  if (typeof define === "function" && define.amd) {
+    define('Reselect', ['exports'], factory);
+  } else if (typeof exports !== "undefined") {
+    factory(exports);
+  } else {
+    var mod = {
+      exports: {}
+    };
+    factory(mod.exports);
+    global.Reselect = mod.exports;
+  }
+})(this, function (exports) {
+  ...
+});
+```
+
+</CodeSurfer>
+
+---
+
+<h1 style={{textAlign: "center"}}>Variables declared outside of<br /> any function are global</h1>
+
+---
+
+<CodeSurferColumns themes={[nightOwl, duskOwl]}>
 
 <Step>
 
-```js
-const magna = aliqua => aliqua.ut((enim, ad) => enim, 0);
+```js title="counter.js"
+var eggs = 0;
+
+function lay(amount) {
+  eggs += amount;
+}
+
+function crack(amount) {
+  eggs -= amount;
+}
 ```
 
 ```js
-const minim = (ad, enim) => dolore.magna(ad / enim);
 ```
 
 </Step>
 
 <Step>
 
-```js
-const lorem = (ipsum, dolor, sit) => {
-  const amet = dolor - ipsum;
-  return consectetur.adipiscing(
-    {
-      elit: sed.eiusmod(sit - dolor) / amet + 2,
-    },
-    (tempor, incididunt) => ipsum + amet * incididunt
-  );
-};
+```js title="counter.js"
+var eggs = 0;
 
-const magna = aliqua => aliqua.ut((enim, ad) => enim, 0);
+function lay(amount) {
+  eggs += amount;
+}
+
+function crack(amount) {
+  eggs -= amount;
+}
 ```
 
-```js
-const minim = (ad, enim) => dolore.magna(ad / enim);
+```js title="omelet.js"
+var eggs = 3;
 
-const sed = (eiusmod, tempor, incididunt) => {
-  const ut = tempor - eiusmod;
-  return labore.et(
-    {
-      amet: dolore.magna(incididunt - tempor) / ut + 2,
-    },
-    (aliqua, elit) => eiusmod + ut * elit
-  );
+function crack() {
+  eggs -= 1;
+}
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurfer>
+
+```js title="Namespaces"
+let Eggs = {};
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurferColumns themes={[nightOwl, duskOwl]}>
+
+<Step>
+
+```js title="counter.js"
+Eggs.Counter = {};
+
+Eggs.Counter.eggs = 0;
+
+Eggs.Counter.lay = amount => {
+  Egg.Counter.eggs += amount;
+};
+
+Eggs.Counter.crack = amount => {
+  Egg.Counter.eggs -= amount;
+};
+```
+
+```js title="omelet.js"
+Eggs.Omelet = {};
+
+Eggs.Omelet.eggs = 3;
+
+Eggs.Omelet.crack = () => {
+  Eggs.Omelet.eggs -= 1;
 };
 ```
 
@@ -148,5 +187,945 @@ const sed = (eiusmod, tempor, incididunt) => {
 
 ---
 
-docs:  
-[codesurfer.pomb.us](https://codesurfer.pomb.us)
+## Module Pattern
+
+<ul>
+  <li>Uses function scope and closures</li>
+  <li>A module:</li>
+  <ul>
+    <li>Presents an interface to the outside world</li>
+    <li>Hides its state and implementation</li>
+  </ul>
+</ul>
+
+---
+
+## Function Scope
+<ul>
+  <li> Functions create a new scope </li>
+  <li> Variables defined in a function are:</li>
+  <ul>
+    <li>Not visible outside the function</li>
+    <li>Visible everywhere in the function,<br/>including inner functions</li>
+  </ul>
+</ul>
+
+---
+
+##  Closures
+
+<p style={{marginLeft: "250px", marginRight: "200px"}}>Inner functions have access to the outer function's (lexical) scope even after the life of the outer function is over</p>
+
+---
+
+<CodeSurfer>
+
+```js 1:13
+function outer() {
+  let localVar = 'foo';
+
+  function inner() {
+    // can access localVar
+    console.log(localVar);
+  }
+
+  inner();
+}
+
+// can't access localVar outside of outer()
+outer(); // prints 'foo'
+```
+
+```js 1:14
+function outer() {
+  let localVar = 'foo';
+
+  function inner() {
+    // can access localVar
+    console.log(localVar);
+  }
+
+  return inner;
+}
+
+// can access localVar through the closure
+const returnValue = outer();
+returnValue(); // prints 'foo'
+```
+
+</CodeSurfer>
+
+---
+
+## Dependency Management
+
+<p style={{marginLeft: "100px", marginRight: "100px"}}>
+  Does the module system automatically load dependencies <br/>before running a module?
+</p>
+
+---
+
+## Language Support
+
+<p style={{marginLeft: "100px", marginRight: "100px"}}>
+  Can JavaScript alone support the module syntax or does it <br/>need a loader or transpilation to work?
+</p>
+
+---
+
+## Module Loader
+
+<p style={{marginLeft: "100px", marginRight: "100px"}}>
+  A library that can load a module in a specific format, along with <br/>all its dependencies
+  in the right order, and then execute it
+</p>
+
+---
+
+## Transpilation
+
+<p style={{marginLeft: "175px", marginRight: "175px"}}>
+  Conversion of one piece of code into an equivalent piece<br/> in another language (or module format)
+</p>
+
+---
+
+<h2 style={{textAlign: "center"}}>Synchronous vs. Asynchronous Loading</h2>
+
+<p style={{marginLeft: "225px", marginRight: "225px"}}>
+  Can modules be loaded synchronously, asynchronously, or both ways?
+</p>
+
+---
+
+## Dynamic Imports
+
+<p style={{marginLeft: "150px", marginRight: "150px"}}>
+  Does the module system allow dynamic loading of modules?
+</p>
+
+---
+
+## Modules Per File
+<p style={{marginLeft: "150px", marginRight: "150px"}}>
+  Does the module system allow more than one module per file?
+</p>
+
+---
+
+## Module Bundler
+
+<p style={{marginLeft: "200px", marginRight: "200px"}}>
+  A tool that takes a module along with its dependencies and bundles them in the right
+  order into a single file
+</p>
+
+---
+
+## Static Analysis
+
+<p style={{marginLeft: "150px", marginRight: "100px"}}>
+  Does the module system permit static analysis leading to<br/> dead code elimination or tree shaking?
+</p>
+
+---
+
+<CodeSurfer>
+
+```js title="IIFE - Immediately Invoked Function Expression"
+(function () {
+  // Private data and functions
+  let privateVar;
+
+  function privateFunction() {
+    ...
+  }
+
+  // Return public interface
+  return {
+    publicFunction: () => {
+      ...
+      privateFunction();
+      ...
+    }
+  }
+})();
+```
+
+```js 1[2:15],2:16,17[1:1] title="IIFE - Immediately Invoked Function Expression"
+(function () {
+  // Private data and functions
+  let privateVar;
+
+  function privateFunction() {
+    ...
+  }
+
+  // Return public interface
+  return {
+    publicFunction: () => {
+      ...
+      privateFunction();
+      ...
+    }
+  }
+})();
+```
+
+```js 1[1:1],17[2:5] title="IIFE - Immediately Invoked Function Expression"
+(function () {
+  // Private data and functions
+  let privateVar;
+
+  function privateFunction() {
+    ...
+  }
+
+  // Return public interface
+  return {
+    publicFunction: () => {
+      ...
+      privateFunction();
+      ...
+    }
+  }
+})();
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer>
+
+```js title="IIFE" 1:15
+const eggModule = (function() {
+  // Private variables and functions
+  let eggs = 0;
+
+  function changeBy(amount) {
+    eggs += amount;
+  }
+
+  // Return public interface
+  return {
+    dozens: () => eggs / 12,
+    lay: amount => changeBy(amount),
+    crack: amount => changeBy(amount * -1),
+  };
+})();
+
+eggModule.lay(15);
+eggModule.crack(3);
+eggModule.dozens();    // 1
+eggModule.eggs;        // undefined
+eggModule.changeBy();  // not a function
+```
+
+```js title="IIFE" 1:15
+const eggModule = (function(init) {
+  // Private variables and functions
+  let eggs = init;
+
+  function changeBy(amount) {
+    eggs += amount;
+  }
+
+  // Return public interface
+  return {
+    dozens: () => eggs / 12,
+    lay: amount => changeBy(amount),
+    crack: amount => changeBy(amount * -1),
+  };
+})(12);
+
+eggModule.lay(15);
+eggModule.crack(3);
+eggModule.dozens();    // 2
+eggModule.eggs;        // undefined
+eggModule.changeBy();  // not a function
+```
+
+```js title="IIFE" 9:13,16:19
+const eggModule = (function(init) {
+  // Private variables and functions
+  let eggs = init;
+
+  function changeBy(amount) {
+    eggs += amount;
+  }
+
+  // Return public interface
+  return {
+    dozens: () => eggs / 12,
+    lay: amount => changeBy(amount),
+    crack: amount => changeBy(amount * -1),
+  };
+})(12);
+
+eggModule.lay(15);
+eggModule.crack(3);
+eggModule.dozens();    // 2
+eggModule.eggs;        // undefined
+eggModule.changeBy();  // not a function
+```
+
+```js title="IIFE" 2:7,20:21
+const eggModule = (function(init) {
+  // Private variables and functions
+  let eggs = init;
+
+  function changeBy(amount) {
+    eggs += amount;
+  }
+
+  // Return public interface
+  return {
+    dozens: () => eggs / 12,
+    lay: amount => changeBy(amount),
+    crack: amount => changeBy(amount * -1),
+  };
+})(12);
+
+eggModule.lay(15);
+eggModule.crack(3);
+eggModule.dozens();    // 2
+eggModule.eggs;        // undefined
+eggModule.changeBy();  // not a function
+```
+
+</CodeSurfer>
+
+---
+
+## IIFE Pros
+
+<ul>
+  <li>Natively supported by JavaScript</li>
+  <li>Files may contain multiple modules</li>
+</ul>
+
+---
+
+## IIFE Cons
+
+<ul>
+  <li>Synchronous loading only</li>
+  <li>No dynamic imports</li>
+  <li>No dependency management</li>
+  <li>Hard to perform static analysis</li>
+</ul>
+
+---
+
+<CodeSurfer>
+
+```js title="CommonJS"
+const {DOZEN} = require('constants');
+
+let eggs = 0;
+
+function changeBy(amount) {
+  eggs += amount;
+};
+
+module.exports.dozens = () => {
+  return eggs / DOZEN;
+};
+
+module.exports.lay = amount => {
+  changeBy(amount);
+};
+
+module.exports.crack = amount => {
+  changeBy(amount * -1);
+};
+```
+
+```js title="CommonJS" 9:19
+const {DOZEN} = require('constants');
+
+let eggs = 0;
+
+function changeBy(amount) {
+  eggs += amount;
+};
+
+module.exports.dozens = () => {
+  return eggs / DOZEN;
+};
+
+module.exports.lay = amount => {
+  changeBy(amount);
+};
+
+module.exports.crack = amount => {
+  changeBy(amount * -1);
+};
+```
+
+```js title="CommonJS" 1
+const {DOZEN} = require('constants');
+
+let eggs = 0;
+
+function changeBy(amount) {
+  eggs += amount;
+};
+
+module.exports.dozens = () => {
+  return eggs / DOZEN;
+};
+
+module.exports.lay = amount => {
+  changeBy(amount);
+};
+
+module.exports.crack = numDozens => {
+  changeBy(amount * -1);
+};
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer>
+
+```js title="CommonJS"
+const eggCounter = require('eggCounter');
+
+eggCounter.lay(15);
+eggCounter.crack(3);
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer>
+
+```js title="CommonJS"
+const {
+  lay,
+  crack,
+} = require('counter');
+
+lay(15);
+crack(3);
+```
+
+</CodeSurfer>
+
+---
+
+## CommonJS Pros
+<ul>
+  <li>Compact syntax</li>
+  <li>Integrated dependency management</li>
+  <li>Dynamic imports</li>
+</ul>
+
+---
+
+## CommonJS Cons
+<ul>
+  <li>Synchronous loading only</li>
+  <li>One module per file</li>
+  <li>Requires a module loader</li>
+  <li>Difficult to perform static analysis</li>
+</ul>
+
+---
+
+<CodeSurfer>
+
+```js title="AMD - Asynchronous Module Definition"
+define(["constants"], function(constants) {
+  let eggs = 0;
+
+  function changeBy(amount) {
+    eggs += amount;
+  };
+  ​
+  return {
+    dozens: () => eggs / constants.DOZEN;
+    lay: amount => changeBy(amount);
+    crack: amount => changeBy(amount * -1);
+  }
+});
+```
+
+```js 1[1:6] title="AMD - Asynchronous Module Definition"
+define(["constants"], function(constants) {
+  let eggs = 0;
+
+  function changeBy(amount) {
+    eggs += amount;
+  };
+  ​
+  return {
+    dozens: () => eggs / constants.DOZEN;
+    lay: amount => changeBy(amount);
+    crack: amount => changeBy(amount * -1);
+  }
+});
+```
+
+```js 1[8:20] title="AMD - Asynchronous Module Definition"
+define(["constants"], function(constants) {
+  let eggs = 0;
+
+  function changeBy(amount) {
+    eggs += amount;
+  };
+  ​
+  return {
+    dozens: () => eggs / constants.DOZEN;
+    lay: amount => changeBy(amount);
+    crack: amount => changeBy(amount * -1);
+  }
+});
+```
+
+```js 1[22:43],2:12,13[1:1] title="AMD - Asynchronous Module Definition"
+define(["constants"], function(constants) {
+  let eggs = 0;
+
+  function changeBy(amount) {
+    eggs += amount;
+  };
+  ​
+  return {
+    dozens: () => eggs / constants.DOZEN;
+    lay: amount => changeBy(amount);
+    crack: amount => changeBy(amount * -1);
+  }
+});
+```
+
+```js 1[8:20,31:41] title="AMD - Asynchronous Module Definition"
+define(["constants"], function(constants) {
+  let eggs = 0;
+
+  function changeBy(amount) {
+    eggs += amount;
+  };
+  ​
+  return {
+    dozens: () => eggs / constants.DOZEN;
+    lay: amount => changeBy(amount);
+    crack: amount => changeBy(amount * -1);
+  }
+});
+```
+
+```js 1:13 title="AMD - Asynchronous Module Definition"
+define(["constants"], function(constants) {
+  let eggs = 0;
+
+  function changeBy(amount) {
+    eggs += amount;
+  };
+  ​
+  return {
+    dozens: () => eggs / constants.DOZEN;
+    lay: amount => changeBy(amount);
+    crack: amount => changeBy(amount * -1);
+  }
+});
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer>
+
+```js title="AMD"
+define([ "require", "constants", "jquery",
+         "blade/object", "blade/fn", "rdapi",
+         "oauth", "blade/jig", "blade/url",
+         "dispatch", "accounts", "storage",
+         "services", "widgets/AccountPanel",
+         "widgets/TabButton", "widgets/AddAccount",
+         "less", "osTheme", "jquery-ui-1.8.7.min",
+         "jquery.textOverflow"],
+function (require, constants, $, object, fn, rdapi,
+          oauth, jig, url, dispatch, accounts,
+          storage, services, AccountPanel, TabButton,
+          AddAccount, less, osTheme) {
+  ...
+});
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurferColumns themes={[nightOwl, duskOwl]}>
+
+<Step>
+
+```js title="You Write"
+define(function (require) {
+    const dep1 = require('dep1'),
+          dep2 = require('dep2');
+
+    return {
+      ...
+    };
+});
+```
+
+```js
+```
+
+</Step>
+
+<Step>
+
+```js title="You Write"
+define(function (require) {
+    const dep1 = require('dep1'),
+          dep2 = require('dep2');
+
+    return {
+      ...
+    };
+});
+```
+
+```js title="Transforms To"
+define(
+  ['require', 'dep1', 'dep2'],
+  function (require) {
+    const dep1 = require('dep1'),
+          dep2 = require('dep2');
+
+    return {
+      ...
+    };
+});
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurfer>
+
+```js title="AMD - CommonJS Wrapper"
+define(function(require, exports, module) {
+  // commonjs module
+  const foo = require('foo');
+
+  module.exports.bar = () => console.log('foo');
+});
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer>
+
+```js title="AMD - Loading Plain JavaScript"
+require(["script.js"], function() {
+    // invoked after script.js has loaded
+});
+```
+
+</CodeSurfer>
+
+---
+
+## AMD Pros
+
+<ul>
+  <li>Supports synchronous and asynchronous loading</li>
+  <li>Multiple modules per file</li>
+  <li>Integrated dependency management</li>
+  <li>Compatibility for CommonJS require and exports</li>
+</ul>
+
+---
+
+## AMD Cons
+
+<ul>
+  <li>More complicated syntax</li>
+  <li>Requires a module loader</li>
+  <li>Hard to perform static analysis</li>
+</ul>
+
+---
+
+## JavaScript Module Standards
+<ul>
+  <li>CommonJS</li>
+  <li>AMD</li>
+</ul>
+
+---
+
+ <img style={{marginTop: "10%", height: "60%"}} src="https://imgs.xkcd.com/comics/standards.png" />
+
+---
+
+<CodeSurfer>
+
+```js title="UMD - Universal Module Definition"
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['dep'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node. Does not work with strict CommonJS, but
+        // only CommonJS-like environments that support module.exports,
+        // like Node.
+        module.exports = factory(require('dep'));
+    } else {
+        // Browser globals (root is window)
+        root.returnExports = factory(root.dep);
+    }
+}(typeof self !== 'undefined' ? self : this, function (dep) {
+    // Use dep in some fashion.
+
+    // Just return a value to define the module export.
+    // This example returns an object, but the module
+    // can return a function as the exported value.
+    return {};
+}));
+```
+
+```js title="UMD - Universal Module Definition" 14[2:62],15:20,21[1:2]
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['dep'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node. Does not work with strict CommonJS, but
+        // only CommonJS-like environments that support module.exports,
+        // like Node.
+        module.exports = factory(require('dep'));
+    } else {
+        // Browser globals (root is window)
+        root.returnExports = factory(root.dep);
+    }
+}(typeof self !== 'undefined' ? self : this, function (dep) {
+    // Use dep in some fashion.
+
+    // Just return a value to define the module export.
+    // This example returns an object, but the module
+    // can return a function as the exported value.
+    return {};
+}));
+```
+
+```js title="UMD - Universal Module Definition" 2:13
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['dep'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node. Does not work with strict CommonJS, but
+        // only CommonJS-like environments that support module.exports,
+        // like Node.
+        module.exports = factory(require('dep'));
+    } else {
+        // Browser globals (root is window)
+        root.returnExports = factory(root.dep);
+    }
+}(typeof self !== 'undefined' ? self : this, function (dep) {
+    // Use dep in some fashion.
+
+    // Just return a value to define the module export.
+    // This example returns an object, but the module
+    // can return a function as the exported value.
+    return {};
+}));
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer>
+
+```js title="ES Modules"
+import {DOZEN} from 'constants';
+
+let eggs = 0;
+
+function changeBy(amount) {
+  eggs += amount;
+};
+
+export const dozens = () => {
+  return eggs / constants.DOZEN;
+};
+
+export const lay = amount => {
+  changeBy(amount);
+};
+
+export const crack = amount => {
+  changeBy(amount * -1);
+};
+```
+
+```js title="ES Modules" 9:19
+import {DOZEN} from 'constants';
+
+let eggs = 0;
+
+function changeBy(amount) {
+  eggs += amount;
+};
+
+export const dozens = () => {
+  return eggs / constants.DOZEN;
+};
+
+export const lay = amount => {
+  changeBy(amount);
+};
+
+export const crack = amount => {
+  changeBy(amount * -1);
+};
+```
+
+```js title="ES Modules" 1
+import {DOZEN} from 'constants';
+
+let eggs = 0;
+
+function changeBy(amount) {
+  eggs += amount;
+};
+
+export const dozens = () => {
+  return eggs / constants.DOZEN;
+};
+
+export const lay = amount => {
+  changeBy(amount);
+};
+
+export const crack = amount => {
+  changeBy(amount * -1);
+};
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer>
+
+```js
+// Exporting individual features
+export let name1, name2, …, nameN; // also var, const
+export let name1 = …, name2 = …, …, nameN; // also var, const
+export function functionName(){...}
+export class ClassName {...}
+
+// Export list
+export { name1, name2, …, nameN };
+
+// Renaming exports
+export { variable1 as name1, variable2 as name2, …, nameN };
+
+// Exporting destructured assignments with renaming
+export const { name1, name2: bar } = o;
+
+// Default exports
+export default expression;
+export default function (…) { … } // also class, function*
+export default function name1(…) { … } // also class, function*
+export { name1 as default, … };
+
+// Aggregating modules
+export * from …; // does not set the default export
+export * as name1 from …;
+export { name1, name2, …, nameN } from …;
+export { import1 as name1, import2 as name2, …, nameN } from …;
+export { default } from …;
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer>
+
+```js
+import defaultExport from "module-name";
+import * as name from "module-name";
+import { export1 } from "module-name";
+import { export1 as alias1 } from "module-name";
+import { export1 , export2 } from "module-name";
+import { foo , bar } from "module-name/path/to/specific/un-exported/file";
+import { export1 , export2 as alias2 , [...] } from "module-name";
+import defaultExport, { export1 [ , [...] ] } from "module-name";
+import defaultExport, * as name from "module-name";
+import "module-name";
+var promise = import("module-name");
+```
+
+```js 11
+import defaultExport from "module-name";
+import * as name from "module-name";
+import { export1 } from "module-name";
+import { export1 as alias1 } from "module-name";
+import { export1 , export2 } from "module-name";
+import { foo , bar } from "module-name/path/to/specific/un-exported/file";
+import { export1 , export2 as alias2 , [...] } from "module-name";
+import defaultExport, { export1 [ , [...] ] } from "module-name";
+import defaultExport, * as name from "module-name";
+import "module-name";
+var promise = import("module-name");
+```
+
+</CodeSurfer>
+
+---
+
+## ES Modules Pros
+
+<ul>
+  <li>Supports synchronous and asynchronous loading</li>
+  <li>Simple syntax</li>
+  <li>Dynamic imports</li>
+  <li>Integrated dependency management</li>
+  <li>Support for static analysis</li>
+  <li>Natively supported in JavaScript</li>
+</ul>
+
+---
+
+## ES Modules Cons
+
+<ul>
+  <li>Not supported everywhere</li>
+</ul>
+
+---
+
+<h1 style={{textAlign: "center"}}>Demystifying<br/>JavaScript Modules</h1>
+
+---
+
+<h1 style={{textAlign: "center"}}>Use ES module syntax</h1>
+
+---
+
+# Thank You!
+
+---
+
+<Info />

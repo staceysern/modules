@@ -1,23 +1,18 @@
-# MDX Deck + Code Surfer template
+# Demystifying JavaScript Modules Slides
+
+Presented at the useReactNYC Meetup on January 21, 2020.
+
+View the slides [here](http://bit.ly/376tOS0).
+
+## About the Slides
 
 This project was generated with the `npm init code-surfer-deck` command.
 
-## Development
-
-To run the presentation deck in development mode:
+To run the presentation deck:
 
 ```sh
+npm init
 npm start
-```
-
-Edit the [`deck.mdx`](deck.mdx) file to get started.
-
-## Exporting
-
-To build the presentation deck:
-
-```sh
-npm run build
 ```
 
 For more documentation see [MDX Deck](https://github.com/jxnblk/mdx-deck) and [Code Surfer](https://codesurfer.pomb.us/)
