@@ -7,10 +7,11 @@ import {Head} from 'mdx-deck';
 
 import {AboutMe} from './src/about-me';
 import {AppearList} from './src/appear-list';
+import {NotesList} from './src/notes-list';
 import {Info} from './src/info';
 
 import {duskOwl} from './src/dusk-owl';
-import {nightOwl} from '@code-surfer/themes';
+import {nightOwl} from "@code-surfer/themes";
 export const theme = nightOwl;
 
 <Head>
@@ -19,12 +20,11 @@ export const theme = nightOwl;
 
 <div>
   <h1 style={{textAlign: "center"}}>Demystifying<br/>JavaScript Modules</h1>
-  <p style={{marginTop: "150px", textAlign: "center"}}>http://bit.ly/376tOS0</p>
 </div>
 
 ---
 
-<AboutMe />
+<AboutMe/>
 
 ---
 
@@ -163,11 +163,11 @@ Eggs.Counter = {};
 Eggs.Counter.eggs = 0;
 
 Eggs.Counter.lay = amount => {
-  Egg.Counter.eggs += amount;
+  Eggs.Counter.eggs += amount;
 };
 
 Eggs.Counter.crack = amount => {
-  Egg.Counter.eggs -= amount;
+  Eggs.Counter.eggs -= amount;
 };
 ```
 
@@ -415,31 +415,7 @@ const eggModule = (function() {
   };
 })();
 
-eggModule.lay(15);
-eggModule.crack(3);
-eggModule.dozens();    // 1
-eggModule.eggs;        // undefined
-eggModule.changeBy();  // not a function
-```
-
-```js title="IIFE" 1:15
-const eggModule = (function(init) {
-  // Private variables and functions
-  let eggs = init;
-
-  function changeBy(amount) {
-    eggs += amount;
-  }
-
-  // Return public interface
-  return {
-    dozens: () => eggs / 12,
-    lay: amount => changeBy(amount),
-    crack: amount => changeBy(amount * -1),
-  };
-})(12);
-
-eggModule.lay(15);
+eggModule.lay(27);
 eggModule.crack(3);
 eggModule.dozens();    // 2
 eggModule.eggs;        // undefined
@@ -463,7 +439,7 @@ const eggModule = (function(init) {
   };
 })(12);
 
-eggModule.lay(15);
+eggModule.lay(27);
 eggModule.crack(3);
 eggModule.dozens();    // 2
 eggModule.eggs;        // undefined
@@ -487,7 +463,7 @@ const eggModule = (function(init) {
   };
 })(12);
 
-eggModule.lay(15);
+eggModule.lay(27);
 eggModule.crack(3);
 eggModule.dozens();    // 2
 eggModule.eggs;        // undefined
@@ -542,28 +518,6 @@ module.exports.crack = amount => {
 };
 ```
 
-```js title="CommonJS" 9:19
-const {DOZEN} = require('constants');
-
-let eggs = 0;
-
-function changeBy(amount) {
-  eggs += amount;
-};
-
-module.exports.dozens = () => {
-  return eggs / DOZEN;
-};
-
-module.exports.lay = amount => {
-  changeBy(amount);
-};
-
-module.exports.crack = amount => {
-  changeBy(amount * -1);
-};
-```
-
 ```js title="CommonJS" 1
 const {DOZEN} = require('constants');
 
@@ -582,6 +536,28 @@ module.exports.lay = amount => {
 };
 
 module.exports.crack = numDozens => {
+  changeBy(amount * -1);
+};
+```
+
+```js title="CommonJS" 9:19
+const {DOZEN} = require('constants');
+
+let eggs = 0;
+
+function changeBy(amount) {
+  eggs += amount;
+};
+
+module.exports.dozens = () => {
+  return eggs / DOZEN;
+};
+
+module.exports.lay = amount => {
+  changeBy(amount);
+};
+
+module.exports.crack = amount => {
   changeBy(amount * -1);
 };
 ```
@@ -630,10 +606,10 @@ crack(3);
 
 ## CommonJS Cons
 <ul>
+  <li>Difficult to perform static analysis</li>
   <li>Synchronous loading only</li>
   <li>One module per file</li>
   <li>Requires a module loader</li>
-  <li>Difficult to perform static analysis</li>
 </ul>
 
 ---
@@ -871,7 +847,7 @@ require(["script.js"], function() {
 
 ---
 
- <img style={{marginTop: "10%", height: "60%"}} src="https://imgs.xkcd.com/comics/standards.png" />
+<img style={{marginTop: "10%", height: "60%"}} src="https://imgs.xkcd.com/comics/standards.png" />
 
 ---
 
@@ -1101,9 +1077,9 @@ var promise = import("module-name");
   <li>Supports synchronous and asynchronous loading</li>
   <li>Simple syntax</li>
   <li>Dynamic imports</li>
-  <li>Integrated dependency management</li>
   <li>Support for static analysis</li>
   <li>Natively supported in JavaScript</li>
+  <li>Integrated dependency management</li>
 </ul>
 
 ---
@@ -1116,16 +1092,163 @@ var promise = import("module-name");
 
 ---
 
-<h1 style={{textAlign: "center"}}>Demystifying<br/>JavaScript Modules</h1>
+<h1 style={{textAlign: "center"}}>Use ES Module syntax</h1>
 
 ---
 
-<h1 style={{textAlign: "center"}}>Use ES module syntax</h1>
+<h1 style={{textAlign: "center"}}>Metaserver</h1>
+<ul>
+  <li>ES Module syntax</li>
+  <li>Transpile to ES5 AMD</li>
+  <li>Use Alameda module loader</li>
+</ul>
+
+---
+
+## Bazel  Rules for 3rd Party Libraries
+
+<ul>
+  <li>Library rule
+    <ul>
+      <li>dbx_npm_library</li>
+    </ul>
+  </li>
+  <li>Build rule
+    <ul>
+      <li>dbx_js_library</li>
+      <li>dbx_webpack_build</li>
+    </ul>
+  </li>
+</ul>
+
+---
+
+<CodeSurfer>
+
+```py title="npm/prop-types/BUILD.in"
+dbx_npm_library(
+  name = "prop-types",
+  exports_files = [
+    "node_modules/prop-types/prop-types.js",
+  ],
+  npm_req = "prop-types@15.7.2",
+)
+```
+
+</CodeSurfer>
+
+---
+
+## Bazel Rules
+<ul>
+  <li>dbx_js_library</li>
+  <li>dbx_webpack_build</li>
+</ul>
+
+---
+
+## dbx_js_library
+<ul>
+  <li>AMD</li>
+  <li>UMD</li>
+  <li>ES Modules</li>
+</ul>
+
+---
+
+##  dbx_webpack_build
+<ul>
+  <li>CommonJS</li>
+  <li>Non-module ES5</li>
+  <li>ES5 global scripts</li>
+</ul>
+
+---
+
+<CodeSurfer>
+
+```py title="metaserver/static/js/external/BUILD"
+dbx_js_library(
+    name = "prop-types",
+    srcs = [
+        "//npm/prop-types:node_modules/prop-types/prop-types.js",
+    ],
+    decls = [
+        "prop-types.d.ts",
+    ],
+    input_module_format = "UMD",
+    module_to_output_ext = {
+        "none": ".npm.js",
+    },
+    tsconfig = "//metaserver/static/js:tsconfig_options.json",
+    build_config = ":config",
+    vendored = False,
+)
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer>
+
+```py title="metaserver/static/js/external/BUILD"
+dbx_webpack_build(
+    name = "web_socket",
+    srcs = ["web_socket.js"],
+    outs = [
+        "web_socket.webpack.js",
+        "web_socket.webpack.js.map",
+    ],
+    config = "web_socket.webpack.config.js",
+    config_deps = [
+        "//build_tools/node/bazel-utils",
+        "//npm/exports-loader",
+        "//npm/imports-loader",
+    ],
+    module_args = {
+        "module_name": "web_socket",
+        "module_type": "AMD",
+    },
+    optimize_flag = "",
+)
+```
+
+</CodeSurfer>
+
+---
+
+## drl/web
+
+<ul>
+  <li>JS Libraries
+    <ul>
+      <li>Third-Party JavaScript in Metaserver
+        <ul>
+          <li>Building Third-Party JavaScript</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+---
+
+## Demystifying JavaScript Modules
+
+<ul>
+  <li>Global variable problem</li>
+  <li>Namespaces</li>
+  <li>Module pattern</li>
+  <li>Aspects of module system</li>
+  <li>IIFE</li>
+  <li>CommonJS</li>
+  <li>AMD</li>
+  <li>UMD</li>
+  <li>ES Modules</li>
+  <li>Bazel rules for 3rd party code</li>
+</ul>
 
 ---
 
 # Thank You!
-
----
-
-<Info />
