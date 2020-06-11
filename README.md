@@ -11,7 +11,7 @@ This project was generated with the `npm init code-surfer-deck` command.
 To run the presentation deck:
 
 ```sh
-npm init
+npm install
 npm start
 ```
 
