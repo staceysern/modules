@@ -16,7 +16,7 @@ export function Info() {
         <Emoji size="40px" marginRight="30px" name="twitter.svg" />
         @StaceySern
       </CenteredLi>
-      <CenteredLi style={{marginTop: '150px'}}>http://bit.ly/376tOS0</CenteredLi>
+      <CenteredLi style={{marginTop: '150px'}}>http://modules.staceysern.com</CenteredLi>
     </React.Fragment>
   );
 }
